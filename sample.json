@@ -1,0 +1,245 @@
+{
+    "appinfo": false,
+    "scan_result_history_length": 1,
+    "sandbox": false,
+    "file_id": "bzIxMDQzMDM5MG5oeXpnUg",
+    "data_id": "bzIxMDQzMDM5MG5oeXpnUkszazFBbDRiYnU",
+    "process_info": {
+        "post_processing": {
+            "copy_move_destination": "",
+            "converted_to": "",
+            "converted_destination": "",
+            "actions_ran": "",
+            "actions_failed": ""
+        },
+        "result": "Allowed",
+        "progress_percentage": 100,
+        "profile": "multiscan",
+        "file_type_skipped_scan": false,
+        "blocked_reason": ""
+    },
+    "scan_results": {
+        "scan_details": {
+            "AegisLab": {
+                "threat_found": "",
+                "scan_time": 0,
+                "scan_result_i": 0,
+                "def_time": "2021-04-30T01:00:40.000Z"
+            },
+            "Ahnlab": {
+                "threat_found": "",
+                "scan_time": 1,
+                "scan_result_i": 0,
+                "def_time": "2021-04-30T00:00:00.000Z"
+            },
+            "Antiy": {
+                "threat_found": "",
+                "scan_time": 0,
+                "scan_result_i": 0,
+                "def_time": "2021-04-30T02:16:00.000Z"
+            },
+            "Avira": {
+                "threat_found": "",
+                "scan_time": 1,
+                "scan_result_i": 0,
+                "def_time": "2021-04-30T00:45:00.000Z"
+            },
+            "ClamAV": {
+                "threat_found": "",
+                "scan_time": 15,
+                "scan_result_i": 0,
+                "def_time": "2021-04-29T11:08:00.000Z"
+            },
+            "Comodo": {
+                "threat_found": "",
+                "scan_time": 7,
+                "scan_result_i": 0,
+                "def_time": "2021-04-29T21:55:13.000Z"
+            },
+            "CrowdStrike Falcon ML": {
+                "threat_found": "",
+                "scan_time": 0,
+                "scan_result_i": 23,
+                "def_time": "2021-04-30T00:00:00.000Z"
+            },
+            "Cyren": {
+                "threat_found": "",
+                "scan_time": 11,
+                "scan_result_i": 0,
+                "def_time": "2021-04-30T00:23:00.000Z"
+            },
+            "ESET": {
+                "threat_found": "",
+                "scan_time": 0,
+                "scan_result_i": 0,
+                "def_time": "2021-04-29T00:00:00.000Z"
+            },
+            "Emsisoft": {
+                "threat_found": "",
+                "scan_time": 18,
+                "scan_result_i": 0,
+                "def_time": "2021-04-29T16:24:00.000Z"
+            },
+            "Filseclab": {
+                "threat_found": "",
+                "scan_time": 167,
+                "scan_result_i": 0,
+                "def_time": "2021-04-28T00:17:00.000Z"
+            },
+            "Hauri": {
+                "threat_found": "",
+                "scan_time": 0,
+                "scan_result_i": 0,
+                "def_time": "2021-04-30T00:00:00.000Z"
+            },
+            "Huorong": {
+                "threat_found": "",
+                "scan_time": 0,
+                "scan_result_i": 0,
+                "def_time": "2021-04-29T09:48:00.000Z"
+            },
+            "Ikarus": {
+                "threat_found": "",
+                "scan_time": 0,
+                "scan_result_i": 0,
+                "def_time": "2021-04-29T18:17:10.000Z"
+            },
+            "Jiangmin": {
+                "threat_found": "",
+                "scan_time": 698,
+                "scan_result_i": 0,
+                "def_time": "2021-04-27T20:36:00.000Z"
+            },
+            "K7": {
+                "threat_found": "",
+                "scan_time": 0,
+                "scan_result_i": 0,
+                "def_time": "2021-04-29T16:22:00.000Z"
+            },
+            "Kaspersky": {
+                "threat_found": "",
+                "scan_time": 2,
+                "scan_result_i": 0,
+                "def_time": "2021-04-30T00:26:00.000Z"
+            },
+            "McAfee": {
+                "threat_found": "",
+                "scan_time": 7,
+                "scan_result_i": 0,
+                "def_time": "2021-04-29T00:00:00.000Z"
+            },
+            "NANOAV": {
+                "threat_found": "",
+                "scan_time": 2,
+                "scan_result_i": 0,
+                "def_time": "2021-04-29T18:48:00.000Z"
+            },
+            "Preventon": {
+                "threat_found": "",
+                "scan_time": 34,
+                "scan_result_i": 0,
+                "def_time": "2021-04-29T19:29:00.000Z"
+            },
+            "RocketCyber": {
+                "threat_found": "",
+                "scan_time": 1,
+                "scan_result_i": 23,
+                "def_time": "2021-04-30T00:00:00.000Z"
+            },
+            "Sophos": {
+                "threat_found": "",
+                "scan_time": 11,
+                "scan_result_i": 0,
+                "def_time": "2021-04-29T19:29:46.000Z"
+            },
+            "SUPERAntiSpyware": {
+                "threat_found": "",
+                "scan_time": 926,
+                "scan_result_i": 0,
+                "def_time": "2021-04-22T21:05:00.000Z"
+            },
+            "TACHYON": {
+                "threat_found": "",
+                "scan_time": 3,
+                "scan_result_i": 0,
+                "def_time": "2021-04-30T00:00:00.000Z"
+            },
+            "TrendMicro": {
+                "threat_found": "",
+                "scan_time": 456,
+                "scan_result_i": 0,
+                "def_time": "2021-04-28T20:22:00.000Z"
+            },
+            "TrendMicro House Call": {
+                "threat_found": "",
+                "scan_time": 434,
+                "scan_result_i": 0,
+                "def_time": "2021-04-28T20:38:00.000Z"
+            },
+            "VirusBlokAda": {
+                "threat_found": "",
+                "scan_time": 0,
+                "scan_result_i": 0,
+                "def_time": "2021-04-29T08:40:00.000Z"
+            },
+            "Webroot SMD": {
+                "threat_found": "",
+                "scan_time": 0,
+                "scan_result_i": 23,
+                "def_time": "2021-04-29T21:00:14.000Z"
+            },
+            "Windows Defender": {
+                "threat_found": "",
+                "scan_time": 13,
+                "scan_result_i": 0,
+                "def_time": "2021-04-29T20:23:26.000Z"
+            },
+            "Xvirus Personal Guard": {
+                "threat_found": "",
+                "scan_time": 47,
+                "scan_result_i": 0,
+                "def_time": "2021-04-29T06:21:43.000Z"
+            },
+            "Zillya!": {
+                "threat_found": "",
+                "scan_time": 1,
+                "scan_result_i": 0,
+                "def_time": "2021-04-29T07:28:00.000Z"
+            },
+            "Vir.IT eXplorer": {
+                "threat_found": "",
+                "scan_time": 1,
+                "scan_result_i": 0,
+                "def_time": "2021-04-29T12:37:00.000Z"
+            }
+        },
+        "rescan_available": false,
+        "scan_all_result_i": 0,
+        "start_time": "2021-04-30T03:26:18.634Z",
+        "total_time": 985,
+        "total_avs": 32,
+        "total_detected_avs": 0,
+        "progress_percentage": 100,
+        "scan_all_result_a": "No Threat Detected"
+    },
+    "file_info": {
+        "file_size": 79,
+        "upload_timestamp": "2021-04-30T03:26:18.338Z",
+        "md5": "90C9BADCFE39C133A0989F3FE5A47BE4",
+        "sha1": "79DE10D331F291E5E7F00211C7E3035F6E4A17C3",
+        "sha256": "EB094A9A517FB98D72E9CD74FC2D0890A94E0CD85F4A448E9A23690A8E74589B",
+        "file_type_category": "T",
+        "file_type_description": "ASCII Text",
+        "file_type_extension": "txt",
+        "display_name": "PostMan-trial.txt"
+    },
+    "share_file": 1,
+    "private_processing": 0,
+    "rest_version": "4",
+    "additional_info": [],
+    "votes": {
+        "up": 0,
+        "down": 0
+    },
+    "stored": true
+}

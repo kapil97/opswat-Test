@@ -22,7 +22,6 @@ public class FileProcessor implements FileProcessorI {
         }
         catch (NoSuchAlgorithmException exception){
             System.err.println("No such Algorithm found please enter appropriate file hashing Algorithm! Such as MD5, SHA-256");
-//            exception.printStackTrace();
         }
 
         return getFileChecksum(messageDigest,file);
