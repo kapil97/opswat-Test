@@ -8,7 +8,8 @@ import java.security.NoSuchAlgorithmException;
 
 public class FileProcessor implements FileProcessorI {
 
-    String inputFile;
+    private String inputFile;
+    private File file;
     public FileProcessor(String inputFile){
         this.inputFile = inputFile;
     }
@@ -19,12 +20,17 @@ public class FileProcessor implements FileProcessorI {
         try{
             messageDigest = MessageDigest.getInstance(hash);
             file = new File(inputFile);
+            this.file = file;
         }
         catch (NoSuchAlgorithmException exception){
             System.err.println("No such Algorithm found please enter appropriate file hashing Algorithm! Such as MD5, SHA-256");
         }
 
         return getFileChecksum(messageDigest,file);
+    }
+
+    public File getFile() {
+        return file;
     }
 
     private String getFileChecksum(MessageDigest digest, File file){
