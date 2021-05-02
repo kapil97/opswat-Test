@@ -3,8 +3,8 @@ package calls;
 import java.io.File;
 
 public interface RestCallsI {
-    void testJsonGETReq();
-    void setFile(File file);
+    void setFile(String filepath);
     void setApikey(String apiKey);
-    public boolean ifHashExists(String hash);
+    boolean ifHashExists(String hash);
+    boolean uploadFile();
 }
