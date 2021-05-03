@@ -1,7 +1,4 @@
 package calls;
-
-import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 import java.io.IOException;
 import java.net.URI;
@@ -9,6 +6,9 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 public class RESTCalls implements RestCallsI{
     private String dataID;
@@ -18,6 +18,7 @@ public class RESTCalls implements RestCallsI{
     private final HttpClient httpClient;
     private String filepath;
     private String apikey;
+    private List<ScanResult> resultList = new ArrayList<>();
 
     public RESTCalls(String apikey, String filepath){
         this.filepath = filepath;
@@ -54,18 +55,40 @@ public class RESTCalls implements RestCallsI{
             JSONObject errorObject = jsonObject.getJSONObject("error");
             int code = errorObject.getInt("code");
             if(code!= 400140) System.err.println("No endpoint found");
-            System.err.println(errorObject.getJSONArray("messages").toString());
+            else System.err.println(errorObject.getJSONArray("messages").toString());
             return false;
         }
         else {
             this.dataID = jsonObject.getString("data_id");
-            System.out.println("dataID: " +dataID);
+//            System.out.println("dataID: " +dataID);
             return jsonObject.getString("status").equals("inqueue");
         }
     }
 
-    public boolean ifHashExists(String hash){
+    public void printScanResults() {
+        JSONObject jsonObject = retrieveScanResults();
+        JSONObject scanResults = jsonObject.getJSONObject("scan_results");
+        if(scanResults.has("error")){
+            JSONObject errorObject = scanResults.getJSONObject("error");
+            int code = errorObject.getInt("code");
+            if(code!= 404004) System.err.println("No endpoint found");
+            else System.err.println(errorObject.getJSONArray("messages").toString());
+        }
 
+        else{
+            while(scanResults.has("scan_all_result_a") && scanResults.getString("scan_all_result_a").equals("In queue")){
+                scanResults = retrieveScanResults().getJSONObject("scan_results");
+            }
+            while(scanResults.has("progress_percentage") && scanResults.getInt("progress_percentage") != 100){
+                scanResults = retrieveScanResults().getJSONObject("scan_results");
+            }
+            printResults(scanResults);
+        }
+
+
+    }
+
+    public boolean ifHashExists(String hash){
         HttpRequest request = HttpRequest.newBuilder().GET()
                 .header("apikey",apikey)
                 .header("content-type","application/JSON")
@@ -77,24 +100,21 @@ public class RESTCalls implements RestCallsI{
         } catch (IOException | InterruptedException exception) {
             exception.printStackTrace();
         }
-
-
         JSONObject jsonObject = new JSONObject(response.body());
         if(jsonObject.has("error")){
                 JSONObject errorObject = jsonObject.getJSONObject("error");
                 int code = errorObject.getInt("code");
                 if(code!= 404003) System.err.println("No endpoint found");
-                System.err.println(errorObject.getJSONArray("messages").toString());
+//                else System.err.println(errorObject.getJSONArray("messages").toString());
                 return false;
         }
         else {
             this.dataID = jsonObject.getString("data_id");
-            System.out.println("dataID: " +dataID);
             return true;
         }
     }
 
-    public boolean retrieveScanResults(){
+    private JSONObject retrieveScanResults(){
         HttpRequest request = HttpRequest.newBuilder()
                 .header("apikey",apikey)
                 .uri(URI.create(retrieveFileResultsUrl+dataID))
@@ -107,40 +127,25 @@ public class RESTCalls implements RestCallsI{
             exception.printStackTrace();
         }
         JSONObject jsonObject = new JSONObject(response.body());
-        if(jsonObject.has("status") && jsonObject.getString("status").equals("inqueue")){
-
-        }
-        else if(jsonObject.has("error")){
-
-        }
-        else{
-
-        }
-        return false;
+//        System.out.println("FileName: " +jsonObject.getJSONObject("file_info").getString("display_name"));
+        return jsonObject;
     }
 
-
-    public void testJsonGETReq(){
-        //    private String hash;
-        String testUrl = "https://jsonplaceholder.typicode.com/albums";
-        HttpRequest request = HttpRequest.newBuilder().GET()
-                .header("content-type","application/JSON")
-                .uri(URI.create(testUrl))
-                .build();
-        HttpResponse<String> response = null;
-        try {
-            response = httpClient.send(request,HttpResponse.BodyHandlers.ofString());
-        } catch (IOException | InterruptedException exception) {
-            exception.printStackTrace();
+    private void  printResults(JSONObject scanResults){
+        System.out.println("filename: "+filepath);
+        System.out.println("overall_status: "+scanResults.getString("scan_all_result_a"));
+        JSONObject scanDetails = scanResults.getJSONObject("scan_details");
+        Iterator<String> scanDetailsIterator = scanDetails.keys();
+        while(scanDetailsIterator.hasNext()){
+            String engineName = scanDetailsIterator.next();
+            JSONObject engineObject = scanDetails.getJSONObject(engineName);
+            System.out.println("engine: "+engineName);
+            System.out.println("threat_found: "+(engineObject.getString("threat_found").equals("")? "Clean" : engineObject.getString("threat_found")));
+            System.out.println("scan_result: "+engineObject.getInt("scan_result_i"));
+            System.out.println("def_time: "+ engineObject.getString("def_time"));
+            System.out.println();
         }
-//        System.out.println(response.body());
-
-        JSONArray jsonArray = new JSONArray(response.body());
-        for(int i=0; i<jsonArray.length(); i++){
-            JSONObject jsonObject = jsonArray.getJSONObject(i);
-            System.out.println(jsonObject.get("id")+ " : " + jsonObject.get("title"));
-        }
+        System.out.println("End");
 
     }
-
 }

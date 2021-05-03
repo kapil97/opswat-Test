@@ -2,7 +2,6 @@ package driver;
 
 import calls.RESTCalls;
 import calls.RestCallsI;
-
 import utils.FileProcessor;
 import utils.FileProcessorI;
 
@@ -16,16 +15,18 @@ public class Driver {
         String apiKey = args[1];
         FileProcessorI fileProcessor = new FileProcessor(inputFile);
         String md5Hash = fileProcessor.getChecksum("MD5");
-        RestCallsI restCalls = new RESTCalls(apiKey, inputFile);
-//
-        boolean hashExists = restCalls.ifHashExists(md5Hash);
-        if(hashExists){
 
+        RestCallsI restCalls = new RESTCalls(apiKey, inputFile);
+        boolean hashExists = restCalls.ifHashExists(md5Hash);
+
+        if(hashExists){
+            restCalls.printScanResults();
         }
         else {
             boolean isSuccessful = restCalls.uploadFile();
+            if(isSuccessful)
+                restCalls.printScanResults();
         }
-
 
     }
 }
