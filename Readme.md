@@ -1,10 +1,8 @@
+## OPSWAT ASSESSMENT
 
-
-##OPSWAT ASSESSMENT
-
-###Name: Kamleshwar Ragava
-###Email: rskamleshwar@gmail.com
-####Project Requirements and Dependencies:
+### Name: Kamleshwar Ragava
+### Email: rskamleshwar@gmail.com
+#### Project Requirements and Dependencies:
 
 1. [JAVA (jdk 11 or above)](https://www.oracle.com/java/technologies/javase-jdk11-downloads.html)
 2. [Maven](https://maven.apache.org/download.cgi)
