@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-public class FileProcessor implements FileProcessorI {
+public class FileProcessor{
 
     private String inputFile;
     private File file;

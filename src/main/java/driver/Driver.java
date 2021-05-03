@@ -1,10 +1,8 @@
 package driver;
 
 import calls.RESTCalls;
-import calls.RestCallsI;
 import io.github.cdimascio.dotenv.Dotenv;
 import utils.FileProcessor;
-import utils.FileProcessorI;
 
 
 public class Driver {
@@ -16,18 +14,16 @@ public class Driver {
         String inputFile = args[0];
         Dotenv dotenv = Dotenv.load();
         String apiKey = dotenv.get("API_KEY");
-        FileProcessorI fileProcessor = new FileProcessor(inputFile);
+        FileProcessor fileProcessor = new FileProcessor(inputFile);
         String md5Hash = fileProcessor.getChecksum("MD5");
-        RestCallsI restCalls = new RESTCalls(apiKey, inputFile);
+        RESTCalls restCalls = new RESTCalls(apiKey, inputFile);
+        restCalls.setRetryDuration(500);
         boolean hashExists = restCalls.ifHashExists(md5Hash);
-        if(hashExists){
-            restCalls.retrieveAndPrintScanResults();
-        }
-        else {
-            boolean isSuccessful = restCalls.uploadFile();
-            if(isSuccessful)
-                restCalls.retrieveAndPrintScanResults();
-        }
 
+        boolean isUploadSuccessful = true;
+        if(!hashExists){
+            isUploadSuccessful = restCalls.uploadFile();
+        }
+        if(isUploadSuccessful) restCalls.retrieveAndPrintScanResults();
     }
 }

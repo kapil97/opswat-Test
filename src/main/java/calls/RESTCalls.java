@@ -11,7 +11,7 @@ import java.nio.file.Paths;
 import java.util.Iterator;
 
 
-public class RESTCalls implements RestCallsI{
+public class RESTCalls{
     private String dataID;
     private final String retrieveFileResultsUrl = "https://api.metadefender.com/v4/file/";
     private final String uploadFileUrl = "https://api.metadefender.com/v4/file";
@@ -19,6 +19,7 @@ public class RESTCalls implements RestCallsI{
     private final HttpClient httpClient;
     private String filepath;
     private String apikey;
+    private int retryDuration = 500;
 
     public RESTCalls(String apikey, String filepath){
         this.filepath = filepath;
@@ -34,6 +35,10 @@ public class RESTCalls implements RestCallsI{
         this.apikey = apikey;
     }
 
+    /**
+     *
+     * @return if upload is successful
+     */
     public boolean uploadFile(){
         HttpResponse<String> response = null;
         try {
@@ -60,9 +65,12 @@ public class RESTCalls implements RestCallsI{
         }
         else {
             this.dataID = jsonObject.getString("data_id");
-//            System.out.println("dataID: " +dataID);
             return jsonObject.getString("status").equals("inqueue");
         }
+    }
+
+    public void setRetryDuration(int retryDuration) {
+        this.retryDuration = retryDuration;
     }
 
     public void retrieveAndPrintScanResults() {
@@ -74,9 +82,14 @@ public class RESTCalls implements RestCallsI{
             if(code!= 404004) System.err.println("No endpoint found");
             else System.err.println(errorObject.getJSONArray("messages").toString());
         }
-
         else{
+
             while(scanResults.has("progress_percentage") && scanResults.getInt("progress_percentage") != 100){
+                try {
+                    Thread.sleep(retryDuration);
+                } catch (InterruptedException exception) {
+                    exception.printStackTrace();
+                }
                 scanResults = retrieveScanResults().getJSONObject("scan_results");
             }
             printResults(scanResults);
@@ -123,7 +136,6 @@ public class RESTCalls implements RestCallsI{
             exception.printStackTrace();
         }
         JSONObject jsonObject = new JSONObject(response.body());
-//        System.out.println("FileName: " +jsonObject.getJSONObject("file_info").getString("display_name"));
         return jsonObject;
     }
 
