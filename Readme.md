@@ -11,7 +11,7 @@
 
 #### Steps to build and run the project:
 1. Set api key in the .env file in project root directory.
-2. Change directory to the project root directory and type the following commands in the terminal / command line:
+2. Change directory to the project root directory and type the following commands in the terminal or command line:
 ```
 mvn clean
 mvn compile
