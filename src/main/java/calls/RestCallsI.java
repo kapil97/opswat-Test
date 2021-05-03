@@ -6,5 +6,5 @@ public interface RestCallsI {
     boolean ifHashExists(String hash);
 
     boolean uploadFile();
-    void printScanResults();
+    void retrieveAndPrintScanResults();
 }

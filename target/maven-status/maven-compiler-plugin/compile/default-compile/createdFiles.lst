@@ -1,4 +1,3 @@
+driver/Driver.class
 utils/FileProcessorI.class
 utils/FileProcessor.class
-driver/Driver.class
-calls/ScanResult.class

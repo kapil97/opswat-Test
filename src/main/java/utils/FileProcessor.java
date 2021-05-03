@@ -54,7 +54,6 @@ public class FileProcessor implements FileProcessorI {
         catch (IOException exception)
         {
             System.err.println("Error while processing the file");
-//            exception.printStackTrace();
         }
         return null;
     }

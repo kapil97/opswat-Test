@@ -1,14 +1,15 @@
 package calls;
 import org.json.JSONObject;
+
+import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
+
 
 public class RESTCalls implements RestCallsI{
     private String dataID;
@@ -18,7 +19,6 @@ public class RESTCalls implements RestCallsI{
     private final HttpClient httpClient;
     private String filepath;
     private String apikey;
-    private List<ScanResult> resultList = new ArrayList<>();
 
     public RESTCalls(String apikey, String filepath){
         this.filepath = filepath;
@@ -37,7 +37,8 @@ public class RESTCalls implements RestCallsI{
     public boolean uploadFile(){
         HttpResponse<String> response = null;
         try {
-            HttpRequest request = HttpRequest.newBuilder().POST(HttpRequest.BodyPublishers.ofFile(Paths.get(filepath)))
+            HttpRequest request = HttpRequest.newBuilder()
+                    .POST(HttpRequest.BodyPublishers.ofFile(Paths.get(filepath)))
                     .header("apikey",apikey)
                     .header("content-type", "application/octet-stream")
                     .uri(URI.create(uploadFileUrl))
@@ -50,7 +51,6 @@ public class RESTCalls implements RestCallsI{
         }
 
         JSONObject jsonObject = new JSONObject(response.body());
-
         if(jsonObject.has("error")) {
             JSONObject errorObject = jsonObject.getJSONObject("error");
             int code = errorObject.getInt("code");
@@ -65,7 +65,7 @@ public class RESTCalls implements RestCallsI{
         }
     }
 
-    public void printScanResults() {
+    public void retrieveAndPrintScanResults() {
         JSONObject jsonObject = retrieveScanResults();
         JSONObject scanResults = jsonObject.getJSONObject("scan_results");
         if(scanResults.has("error")){
@@ -76,9 +76,6 @@ public class RESTCalls implements RestCallsI{
         }
 
         else{
-            while(scanResults.has("scan_all_result_a") && scanResults.getString("scan_all_result_a").equals("In queue")){
-                scanResults = retrieveScanResults().getJSONObject("scan_results");
-            }
             while(scanResults.has("progress_percentage") && scanResults.getInt("progress_percentage") != 100){
                 scanResults = retrieveScanResults().getJSONObject("scan_results");
             }
@@ -105,7 +102,6 @@ public class RESTCalls implements RestCallsI{
                 JSONObject errorObject = jsonObject.getJSONObject("error");
                 int code = errorObject.getInt("code");
                 if(code!= 404003) System.err.println("No endpoint found");
-//                else System.err.println(errorObject.getJSONArray("messages").toString());
                 return false;
         }
         else {
@@ -132,7 +128,8 @@ public class RESTCalls implements RestCallsI{
     }
 
     private void  printResults(JSONObject scanResults){
-        System.out.println("filename: "+filepath);
+        File file = new File(filepath);
+        System.out.println("filename: "+file.getName());
         System.out.println("overall_status: "+scanResults.getString("scan_all_result_a"));
         JSONObject scanDetails = scanResults.getJSONObject("scan_details");
         Iterator<String> scanDetailsIterator = scanDetails.keys();
