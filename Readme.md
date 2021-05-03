@@ -21,4 +21,6 @@ mvn package
 java -jar target/opswat-1.0-SNAPSHOT.jar <file_path>
 ```
 
+######Navigate to JavaDoc directory and click index.html for the description of all the classes and methods.
+
 

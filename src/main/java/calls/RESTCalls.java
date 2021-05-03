@@ -1,6 +1,6 @@
 package calls;
-import org.json.JSONObject;
 
+import org.json.JSONObject;
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
@@ -10,7 +10,9 @@ import java.net.http.HttpResponse;
 import java.nio.file.Paths;
 import java.util.Iterator;
 
-
+/**
+ * Class to perform REST Api calls to the server
+ */
 public class RESTCalls{
     private String dataID;
     private final String retrieveFileResultsUrl = "https://api.metadefender.com/v4/file/";
@@ -18,26 +20,31 @@ public class RESTCalls{
     private final String hashUrl = "https://api.metadefender.com/v4/hash/";
     private final HttpClient httpClient;
     private String filepath;
-    private String apikey;
-    private int retryDuration = 500;
+    private String apikey;                     // api key
+    private int retryDuration = 500;            //the time delay to call for the retrieval of scan results until progress is 100
 
+    /**
+     * Constructor for RESTCalls class
+     * @param apikey api key
+     * @param filepath path to the file
+     */
     public RESTCalls(String apikey, String filepath){
         this.filepath = filepath;
         this.apikey = apikey;
         httpClient = HttpClient.newHttpClient();
     }
 
+    /**
+     * Method to set filepath of the file that needs to be scanned
+     * @param filepath path to the file
+     */
     public void setFile(String filepath) {
         this.filepath = filepath;
     }
 
-    public void setApikey(String apikey) {
-        this.apikey = apikey;
-    }
-
     /**
-     *
-     * @return if upload is successful
+     * Method to upload file for the scan to the server
+     * @return if upload to the server for the scan is successful
      */
     public boolean uploadFile(){
         HttpResponse<String> response = null;
@@ -69,10 +76,17 @@ public class RESTCalls{
         }
     }
 
+    /**
+     * Method to set the delay period for retrieval of scan results
+     * @param retryDuration delay period for calling the retrieveScanResults method
+     */
     public void setRetryDuration(int retryDuration) {
         this.retryDuration = retryDuration;
     }
 
+    /**
+     * Retrieve and print scan results to the console.
+     */
     public void retrieveAndPrintScanResults() {
         JSONObject jsonObject = retrieveScanResults();
         JSONObject scanResults = jsonObject.getJSONObject("scan_results");
@@ -98,6 +112,11 @@ public class RESTCalls{
 
     }
 
+    /**
+     * Method to check if hash is already present in the server
+     * @param hash hash to be searched
+     * @return if hash exists
+     */
     public boolean ifHashExists(String hash){
         HttpRequest request = HttpRequest.newBuilder().GET()
                 .header("apikey",apikey)
@@ -123,6 +142,10 @@ public class RESTCalls{
         }
     }
 
+    /**
+     * Private method to retrieve scan results from the server
+     * @return response in the form of JSONObject
+     */
     private JSONObject retrieveScanResults(){
         HttpRequest request = HttpRequest.newBuilder()
                 .header("apikey",apikey)
@@ -139,6 +162,10 @@ public class RESTCalls{
         return jsonObject;
     }
 
+    /**
+     * Formatting and printing the scan results to the console.
+     * @param scanResults JSONObject which needs to be formatted and printed
+     */
     private void  printResults(JSONObject scanResults){
         File file = new File(filepath);
         System.out.println("filename: "+file.getName());
